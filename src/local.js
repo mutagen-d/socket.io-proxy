@@ -10,9 +10,11 @@ const authToken = process.env.AUTH_TOKEN;
 if (!authToken) {
   throw new Error('Auth token required. Add AUTH_TOKEN to .env file')
 }
+const rejectUnauthorized = process.env.REJECT_UNAUTHORIZED
 /** @type {import('socket.io-client').Socket} */
-const socket = io(url, {
-  auth: { token: authToken }
+const socket = io.connect(url, {
+  auth: { token: authToken },
+  rejectUnauthorized: rejectUnauthorized === 'true' || !rejectUnauthorized,
 })
 socket.on('connect_error', (error) => {
   console.log(time(), 'connect_error', error.message)

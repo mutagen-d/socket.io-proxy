@@ -1,13 +1,20 @@
 require('dotenv').config()
+const fs = require('fs')
 const net = require('net')
 const http = require('http')
+const https = require('https')
 const { Server } = require('socket.io');
 const ss = require('socket.io-stream')
 
 const port = process.env.REMOTE_SERVER_PORT || 8011;
 const time = () => new Date().toISOString()
 
-const server = http.createServer()
+const cert = process.env.CERT
+const key = process.env.PRIVATE_KEY
+const HAS_CERT = (cert && key)
+const server = HAS_CERT
+  ? https.createServer({ cert: fs.readFileSync(cert), key: fs.readFileSync(key) })
+  : http.createServer()
 const io = new Server(server)
 
 const authToken = process.env.AUTH_TOKEN
@@ -38,4 +45,4 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(port, '0.0.0.0', () => console.log(time(), 'server listening port', port))
+server.listen(port, '0.0.0.0', () => console.log(time(), `${HAS_CERT ? '(ssl) ' : ''}server listening port`, port))
