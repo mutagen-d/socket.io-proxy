@@ -10,6 +10,19 @@ const time = () => new Date().toISOString()
 const server = http.createServer()
 const io = new Server(server)
 
+const authToken = process.env.AUTH_TOKEN
+if (!authToken) {
+  throw new Error('Auth token required. Add AUTH_TOKEN to .env file')
+}
+io.use((socket, next) => {
+  const { auth } = socket.handshake;
+  if (auth.token !== authToken) {
+    next(new Error('unauthorized'))
+  } else {
+    next()
+  }
+})
+
 io.on('connection', (socket) => {
   console.log(time(), 'connected', socket.id)
   ss(socket).on('proxy-stream', (stream, options, callback) => {

@@ -1,15 +1,26 @@
 {
-  "name": "ws-proxy",
+  "name": "socket.io-proxy",
   "version": "1.0.0",
-  "description": "",
+  "description": "Proxy server with socket.io tunneling",
   "main": "src/local.js",
   "scripts": {
     "local": "node src/proxy.js",
     "remote": "node src/remote.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "socket.io",
+    "websocket",
+    "proxy",
+    "http proxy",
+    "socks"
+  ],
+  "author": "mutagen-d",
+  "homepage": "https://github.com/mutagen-d/socket.io-proxy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mutagen-d/socket.io-proxy"
+  },
   "license": "ISC",
   "dependencies": {
     "@mutagen-d/node-proxy-server": "^1.1.0",

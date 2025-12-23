@@ -10,6 +10,7 @@ Edit `.env` file with your settings:
 LOCAL_PROXY_PORT - local proxy port (for your machine)
 REMOTE_SERVER_URL - remote socket.io server url (use https)
 REMOTE_SERVER_PORT - remote server port
+AUTH_TOKEN - token for socket.io authorization (keep it secret)
 ```
 
 ## Install
