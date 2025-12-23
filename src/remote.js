@@ -31,17 +31,18 @@ io.use((socket, next) => {
 })
 
 io.on('connection', (socket) => {
-  console.log(time(), 'connected', socket.id)
+  const ip = socket.request.socket.remoteAddress;
+  console.log(time(), 'connected', socket.id, ip)
   ss(socket).on('proxy-stream', (stream, options, callback) => {
     const s = net.createConnection({ host: options.dstHost, port: options.dstPort })
-    console.log(time(), 'PROXY', `${options.dstHost}:${options.dstPort}`)
+    console.log(time(), 'PROXY', ip.padEnd(15, ' '), `${options.dstHost}:${options.dstPort}`)
     s.on('connect', () => callback())
     s.on('error', (error) => callback(error && (error.message || error)))
     s.pipe(stream).pipe(s)
   })
   const socketId = socket.id;
   socket.on('disconnect', (reason) => {
-    console.log(time(), 'disconnected', socketId, { reason })
+    console.log(time(), 'disconnected', socketId, ip, { reason })
   })
 })
 

@@ -19,6 +19,9 @@ const socket = io.connect(url, {
 socket.on('connect_error', (error) => {
   console.log(time(), 'connect_error', error.message)
 })
+socket.on('connect', () => {
+  console.log(time(), 'connected', socket.id)
+})
 
 const server = createProxyServer({
   createProxyConnection: async (options) => {
