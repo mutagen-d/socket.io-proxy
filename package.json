@@ -1,5 +1,5 @@
 {
-  "name": "socket.io-proxy",
+  "name": "@mutagen-d/socket.io-proxy",
   "version": "1.0.0",
   "description": "Proxy server with socket.io tunneling",
   "main": "src/local.js",
